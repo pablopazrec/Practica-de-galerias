@@ -27,6 +27,7 @@ public class MostrarFavs extends AppCompatActivity {
         setContentView(R.layout.activity_mostrar_favs);
 
         idUsuario=getIntent().getIntExtra("IdUsuario",0);
+        im =(ImageView) findViewById(R.id.imagenCentral);
         if (idUsuario==0){
             Toast.makeText(MostrarFavs.this, "Error en la carga del usuario", Toast.LENGTH_SHORT).show();
         }else {
@@ -36,6 +37,7 @@ public class MostrarFavs extends AppCompatActivity {
             if (favoritos==null){
                 Toast.makeText(MostrarFavs.this, "Este usuario no tiene favoritos", Toast.LENGTH_SHORT).show();
                 mostrarFoto(0);
+
 
             }else{
 
@@ -104,6 +106,7 @@ public class MostrarFavs extends AppCompatActivity {
             case 9: im.setImageResource(R.drawable.barco4);
                 break;
             default: im.setImageResource(R.drawable.oops);
+                break;
 
         }
 

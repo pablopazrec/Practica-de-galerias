@@ -252,7 +252,7 @@ public class Control extends SQLiteOpenHelper {
     }
 
     private Foto buscaFoto(int id){
-        
+
         Foto f = new Foto();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c= db.rawQuery("Select * FROM FOTOS WHERE ID="+id, null);
