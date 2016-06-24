@@ -187,7 +187,7 @@ public class Control extends SQLiteOpenHelper {
     }
     public List<Foto> favoritos(Usuario u){
 
-        //TODO COMPROBAR METODO
+
         String sqlfavs="SELECT * FROM FAVS WHERE idUsuario="+u.getId();
         Log.d("Base de datos", "Seleccionamos todos los datos del usuario:"+sqlfavs);
         SQLiteDatabase db = this.getReadableDatabase();
@@ -220,7 +220,7 @@ public class Control extends SQLiteOpenHelper {
 
     public List<Foto> favoritos(int idUsuario){
 
-        //TODO COMPROBAR METODO
+
         String sqlfavs="SELECT * FROM FAVS WHERE idUsuario="+idUsuario;
         Log.d("Base de datos", "Seleccionamos todos los datos del usuario:"+sqlfavs);
         SQLiteDatabase db = this.getReadableDatabase();
@@ -252,7 +252,7 @@ public class Control extends SQLiteOpenHelper {
     }
 
     private Foto buscaFoto(int id){
-        //TODO Revisar codigo
+        
         Foto f = new Foto();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c= db.rawQuery("Select * FROM FOTOS WHERE ID="+id, null);
