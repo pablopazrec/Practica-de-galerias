@@ -34,6 +34,7 @@ public class MostrarGaleria extends AppCompatActivity {
     Galeria g = new Galeria();
     ArrayList<String> lista;
     Usuario user;
+    int flag; //usamos la variable para comprobar las iteraciones sobre las galerias.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,8 @@ public class MostrarGaleria extends AppCompatActivity {
 
         String nombre= getIntent().getStringExtra("usuario");
         String mensaje = "Bienvenido " +nombre;
-
+        int galDev= getIntent().getIntExtra("galeria",0);
+        flag=0;
 
         bienvenida.setText(mensaje);
 
@@ -66,17 +68,22 @@ public class MostrarGaleria extends AppCompatActivity {
         user = c.devuelveUsuario(nombre);
         Log.d("Base de datos", "Devuelto el usuario");
 
-        //Pruebas antes de meter las imagenes
 
-        //g=this.cargaGaleria("Galeria de Aviones");
 
-        //TODO ESTO ES LO QUE HEMOS CAMBIADO
+
+
+
+       //Comprueba si ha recibido de forma correcta los valores del intent
+        if (galDev==0){
         im.setImageResource(R.drawable.oops);
-        actual =0;
-        total=g.getTotal();
+            Toast.makeText(MostrarGaleria.this, "Error al cargar la Galeria", Toast.LENGTH_SHORT).show();
+        }else {
+            g=cargaGaleria(galDev);
+            actual = 0;
+            total = g.getTotal();
+            mostrarFoto(g.devolverFoto(actual).getId());
+        }
 
-        //Muestra la primera foto de la lista
-        //mostrarFoto(g.devolverFoto(actual).getId());
 
 
         //Listeners botones
@@ -98,9 +105,8 @@ public class MostrarGaleria extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                //Comprobadmos si no nos hemos pasado del máximo antes de dibujar
+                //Comprobamos si no nos hemos pasado del máximo antes de dibujar
 
-                //im.setImageResource(R.drawable.enterprise);
                 if (actual>0){
                     actual--;
                     //intentamos cargar el identificador de la imagen
@@ -158,12 +164,17 @@ public class MostrarGaleria extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int id, long l) {
                 //Cargamos la galeria que seleccionamos con el spinner Hay que sumarle 1 porque el ID en las tablas empieza en 1
 
-                g=cargaGaleria(id+1);
-                lista=g.devolverNombres();
-                actual=0;
+                if (flag==0){
+
+                }else {
+                    g=cargaGaleria(id+1);
+                    lista=g.devolverNombres();
+                    actual=0;
                 //Mostramos siempre la primera foto
-                mostrarFoto(g.devolverFoto(actual).getId());
-                Toast.makeText(MostrarGaleria.this, "Seleccionada la galeria:"+g.getNombre(), Toast.LENGTH_SHORT).show();
+                    mostrarFoto(g.devolverFoto(actual).getId());
+                    Toast.makeText(MostrarGaleria.this, "Seleccionada la galeria:"+g.getNombre(), Toast.LENGTH_SHORT).show();
+
+                }flag=1;
 
 
 
@@ -187,23 +198,6 @@ public class MostrarGaleria extends AppCompatActivity {
 
     }
 
-    public Galeria cargaGaleria(String n){
-        Control c = Control.getControl(this, "midbgalerias1");
-        Galeria gal = new Galeria();
-        List<Foto> lista = new ArrayList<Foto>();
-        //TODO Modificarlo para que acepte cualquier galeria
-        lista = c.devolverFotos(1);
-        Iterator i = lista.iterator();
-        int num=0;
-        while (i.hasNext()) {
-            gal.addFoto((Foto) i.next());
-            num++;
-            Log.d("Base de datos", "Iteracion de carga:" + num);
-        }
-        gal.setNombre(n);
-        //gal.setTotal(num);
-        return gal;
-    }
 
     public Galeria cargaGaleria(int id){
         Control c = Control.getControl(this, "midbgalerias1");

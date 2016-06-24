@@ -37,7 +37,7 @@ public class PantallaLogin extends AppCompatActivity {
         final Control c = Control.getControl(this, "midbGalerias1");
         c.cargarDatos();
 
-        //insetamos el listener del boton
+        //insertamos el listener del boton
         mLogin.setOnClickListener( new View.OnClickListener(){
 
             @Override
@@ -53,8 +53,8 @@ public class PantallaLogin extends AppCompatActivity {
                     Toast.makeText(PantallaLogin.this, "Acceso permitido", Toast.LENGTH_SHORT).show();
 
                     //Asignamos el paso del activity
-                    Intent i = new Intent(PantallaLogin.this, MostrarGaleria.class);
-
+                    //Intent i = new Intent(PantallaLogin.this, MostrarGaleria.class);
+                    Intent i = new Intent(PantallaLogin.this, EscogeGaleria.class);
                     //insertamos los valores a pasar
 
                     i.putExtra("usuario",u1);

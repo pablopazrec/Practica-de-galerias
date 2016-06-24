@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MostrarGaleria" />
-        <activity android:name=".activities.MostrarFavs"></activity>
+        <activity android:name=".activities.MostrarFavs" />
+        <activity android:name=".activities.EscogeGaleria"></activity>
     </application>
 
 </manifest>
